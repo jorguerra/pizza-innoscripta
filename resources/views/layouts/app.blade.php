@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Innoscripta Pizza Delivery') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -45,8 +45,8 @@
                 @else
                 <a href="{{ route('login') }}" class="nav-link">Login</a>
                 @endif
-             </li>  
-              
+             </li>
+
 	        </ul>
 	      </div>
 		  </div>
