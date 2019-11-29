@@ -24,7 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app" data-token="{{ Auth::user()->api_token ?? ''}}"></div>
     <div>
         <main class="py-4">
             @yield('content')

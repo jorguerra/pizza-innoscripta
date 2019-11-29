@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 const axios = require('axios').default;
 
 export default class Header extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            link_sesion: props.user ? 'javascript:void(0)' : '/login',
-            text_sesion: props.user ? 'Logout' : 'Login',
-            onclick_sesion: props.user ? this.logout : null,
-        }
+
+    logout(){
+        axios.post('/logout').then(() => {
+            document.location.href = '/';
+        })
     }
+
     render() {
-        function logout(){
-            axios.post('/logout');
-        }
+
         return (
             <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div className="container">
@@ -30,7 +26,11 @@ export default class Header extends Component {
                             <li className="nav-item"><a href="#" className="nav-link">Blog</a></li>
                             <li className="nav-item"><a href="#" className="nav-link">About</a></li>
                             <li className="nav-item"><a href="#" className="nav-link">Contact</a></li>
-                            <li className="nav-item"><a href={this.state.link_sesion} className="nav-link" onClick={this.state.onclick_sesion}>{this.state.text_sesion}</a></li>
+
+                            <li className="nav-item">
+                                <a href={this.props.user ? '#' : '/login'} className="nav-link"
+                                    onClick={this.props.user ? this.logout : null}>{this.props.user ? 'Logout' : 'Login'}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -39,6 +39,3 @@ export default class Header extends Component {
     }
 }
 
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
-}
