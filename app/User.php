@@ -44,4 +44,9 @@ class User extends Authenticatable
             $user->api_token = \Str::random(60);
         });
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
