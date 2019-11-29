@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Header from './Header'
 
-export default class Example extends Component {
+export default class App extends Component {
     render() {
         return (
             <div className="container">
@@ -19,6 +20,6 @@ export default class Example extends Component {
     }
 }
 
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+if (document.getElementById('app')) {
+    ReactDOM.render(<Header />, document.getElementById('app'));
 }
