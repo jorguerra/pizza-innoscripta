@@ -21,11 +21,6 @@ export default class Header extends Component {
                     <div className="collapse navbar-collapse" id="ftco-nav">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item active"><a href="/" className="nav-link">Home</a></li>
-                            <li className="nav-item"><a href="#" className="nav-link">Menu</a></li>
-                            <li className="nav-item"><a href="#" className="nav-link">Services</a></li>
-                            <li className="nav-item"><a href="#" className="nav-link">Blog</a></li>
-                            <li className="nav-item"><a href="#" className="nav-link">About</a></li>
-                            <li className="nav-item"><a href="#" className="nav-link">Contact</a></li>
 
                             <li className="nav-item">
                                 <a href={this.props.user ? '#' : '/login'} className="nav-link"

@@ -6,25 +6,18 @@ const axios = require('axios').default
 
 export default class App extends Component {
     state = { user: { id: null, admin:false }, pizzas: {} }
-    
+
     componentDidMount(){
         this.getUser()
-        this.getPizzas()
+        axios.get(`/api/pizzas`).then((resp) => this.setState({pizzas: resp.data}))
     }
 
     getUser = async () => {
         let token = document.getElementById('app').dataset.token;
         if(token){
-            axios.get(`/api/user?api_token=${token}`).then((resp) => { this.setState({user: resp.data}) })
+            axios.get(`/api/user?api_token=${token}`).then((resp) => this.setState({user: resp.data}))
         }
     }
-    
-    getPizzas = async () => {
-        axios.get(`/api/pizzas`).then((resp) => { 
-            this.setState({pizzas: resp.data}) 
-        })
-    }
-
 
     render() {
         const {id, admin} = this.state.user
