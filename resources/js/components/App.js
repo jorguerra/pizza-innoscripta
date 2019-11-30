@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header'
+import Home from './Home';
 const axios = require('axios').default
 
 export default class App extends Component {
-    constructor(props){
-        super(props);
-        this.state = { user: { id: null, admin:false } }
-    }
-
+    state = { user: { id: null, admin:false }, pizzas: {} }
+    
     componentDidMount(){
         this.getUser()
+        this.getPizzas()
     }
 
     getUser = async () => {
@@ -19,12 +18,21 @@ export default class App extends Component {
             axios.get(`/api/user?api_token=${token}`).then((resp) => { this.setState({user: resp.data}) })
         }
     }
+    
+    getPizzas = async () => {
+        axios.get(`/api/pizzas`).then((resp) => { 
+            this.setState({pizzas: resp.data}) 
+        })
+    }
 
 
     render() {
+        const {id, admin} = this.state.user
         return (
             <div>
-                <Header user={this.state.user.id} admin={this.state.user.admin} />
+                <Header user={id} admin={admin} />
+
+                <Home pizzas={this.state.pizzas.data} />
             </div>
         );
     }
