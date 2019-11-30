@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header'
 import Home from './Home';
+
 const axios = require('axios').default
 
 export default class App extends Component {
@@ -21,11 +22,10 @@ export default class App extends Component {
 
     addToCart = (id) => {
         const item = this.state.order.reduce((acc, el) => {
-            if(el.id == id)
-                return {id: id, quantity: acc.quantity + el.quantity}
-            return acc;
+            if(!el || el.id != id) return acc;
+            return {id: id, quantity: acc.quantity + el.quantity}
         }, {id: id, quantity:1})
-        let order = this.state.order.map((pizza) =>{ return pizza.id != item.id ? pizza : null})
+        let order = this.state.order.map((pizza) =>{ return pizza && pizza.id != item.id ? pizza : null})
         order.push(item)
         this.setState({order: order})
     }
@@ -39,7 +39,7 @@ export default class App extends Component {
         const {id, admin} = this.state.user
         return (
             <div>
-                <Header user={id} admin={admin} />
+                <Header user={id} admin={admin} cart={this.state.order} />
 
                 <Home pizzas={this.state.pizzas.data} add={this.addToCart} />
             </div>

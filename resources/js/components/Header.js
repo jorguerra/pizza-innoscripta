@@ -10,7 +10,15 @@ export default class Header extends Component {
     }
 
     render() {
-
+        const num_cart = this.props.cart.reduce((acc, pizza) => {
+            if (!pizza) return acc;
+            return acc + pizza.quantity
+        }
+        ,0);
+        let txt_cart = 'No pizzas yet';
+        if(num_cart)
+            txt_cart = `${num_cart} pizza` + (num_cart > 1 ? 's':'')
+        
         return (
             <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div className="container">
@@ -21,7 +29,8 @@ export default class Header extends Component {
                     <div className="collapse navbar-collapse" id="ftco-nav">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item active"><a href="/" className="nav-link">Home</a></li>
-
+                            <li className="nav-item">
+                                <a href="#" className="nav-link">Cart <small>({txt_cart})</small></a></li>
                             <li className="nav-item">
                                 <a href={this.props.user ? '#' : '/login'} className="nav-link"
                                     onClick={this.props.user ? this.logout : null}>{this.props.user ? 'Logout' : 'Login'}</a>
