@@ -5,7 +5,7 @@ import Home from './Home';
 const axios = require('axios').default
 
 export default class App extends Component {
-    state = { user: { id: null, admin:false }, pizzas: {} }
+    state = { user: { id: null, admin:false }, pizzas: {}, order: [] }
 
     componentDidMount(){
         this.getUser()
@@ -19,13 +19,29 @@ export default class App extends Component {
         }
     }
 
+    addToCart = (id) => {
+        const item = this.state.order.reduce((acc, el) => {
+            if(el.id == id)
+                return {id: id, quantity: acc.quantity + el.quantity}
+            return acc;
+        }, {id: id, quantity:1})
+        let order = this.state.order.map((pizza) =>{ return pizza.id != item.id ? pizza : null})
+        order.push(item)
+        this.setState({order: order})
+    }
+
+    constructor(props){
+        super(props);
+        this.addToCart = this.addToCart.bind(this)
+    }
+
     render() {
         const {id, admin} = this.state.user
         return (
             <div>
                 <Header user={id} admin={admin} />
 
-                <Home pizzas={this.state.pizzas.data} />
+                <Home pizzas={this.state.pizzas.data} add={this.addToCart} />
             </div>
         );
     }
