@@ -23,7 +23,7 @@ export default class Cart extends Component{
         return (
             <section className="ftco-section">
                 <div className="container">
-                    <div className="row justify-content-center mb-5 pb-3 mt-5 pt-5">
+                    <div className="row justify-content-center">
                         <div className="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated"> 
                             <h2 className="mb-4">My Order</h2>
                             <p className="flip">
