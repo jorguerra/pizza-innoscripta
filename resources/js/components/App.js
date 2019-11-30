@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header'
 import Home from './Home';
+import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
 
 const axios = require('axios').default
 
@@ -38,11 +39,14 @@ export default class App extends Component {
     render() {
         const {id, admin} = this.state.user
         return (
-            <div>
+            <Router>
                 <Header user={id} admin={admin} cart={this.state.order} />
 
-                <Home pizzas={this.state.pizzas.data} add={this.addToCart} />
-            </div>
+                <Switch>
+                   <Route path='/' exact render={(props) => <Home {...this.props} pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
+                </Switch>
+                
+            </Router>
         );
     }
 }
