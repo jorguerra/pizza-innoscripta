@@ -18,7 +18,6 @@ export default class Cart extends Component{
         
     }
     render(){
-        console.log(this.state)
         return (
             <section className="ftco-section ftco-services">
                 <div className="overlay">

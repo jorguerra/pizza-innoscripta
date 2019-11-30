@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header'
 import Home from './Home';
+import Order from './Order';
 import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
 
 const axios = require('axios').default
@@ -31,6 +32,20 @@ export default class App extends Component {
         this.setState({order: order})
     }
 
+    removeFromCart = (id) => {
+        const order = this.state.order.map((item) => {
+            if(!item || (item.id == id && item.quantity == 1)) return;
+            if(item.id == id) item.quantity--;
+            return item;
+        })
+        this.setState({order: order})
+    }
+
+    getFromCart = (id) => {
+        let item = this.state.order.filter((pizza) => (pizza && pizza.id == id));
+        return item;
+    }
+
     constructor(props){
         super(props);
         this.addToCart = this.addToCart.bind(this)
@@ -43,7 +58,8 @@ export default class App extends Component {
                 <Header user={id} admin={admin} cart={this.state.order} />
 
                 <Switch>
-                   <Route path='/' exact render={(props) => <Home {...this.props} pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
+                   <Route path='/' exact render={() => <Home pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
+                   <Route path='/cart' exact render={() => <Order order={this.state.order} add={this.addToCart} remove={this.removeFromCart} getPizza={this.getFromCart} />} /> 
                 </Switch>
                 
             </Router>

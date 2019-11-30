@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('/pizzas', 'PizzaController@index');
+Route::get('/pizzas/{pizza}', 'PizzaController@show');
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/user', function (Request $request){
         return $request->user();
     });
-    Route::resource('/pizzas', 'PizzaController')->except(['index']);
+    Route::resource('/pizzas', 'PizzaController')->except(['index', 'show']);
     Route::resource('/orders', 'OrderController');
 });
