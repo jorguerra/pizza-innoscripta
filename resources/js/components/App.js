@@ -17,7 +17,9 @@ export default class App extends Component {
         if(window.localStorage.getItem('quantity')){
             let order = [];
             for(let i = 0; i < window.localStorage.getItem('quantity'); i++){
-                order.push(JSON.parse(window.localStorage.getItem(`item${i}`)))
+                try{
+                   order.push(JSON.parse(window.localStorage.getItem(`item${i}`))) 
+                }catch(e){}
             }
             this.setState({order: order})
             window.localStorage.clear(); 
