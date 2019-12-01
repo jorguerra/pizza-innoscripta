@@ -74,6 +74,9 @@ export default class Cart extends Component{
                             </div>
                         )}
                     </div>
+                    <div className="col-md-12 text-center">
+                        <Link to='/order' className="btn btn-primary">Process order</Link>
+                    </div>
                 </div>
             </section>
         )

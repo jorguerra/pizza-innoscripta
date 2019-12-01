@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from './Header'
 import Home from './Home';
 import Order from './Order';
+import OrderForm from './OrderForm'
 import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
 
 const axios = require('axios').default
@@ -44,8 +45,8 @@ export default class App extends Component {
     }
 
     getFromCart = (id) => {
-        let item = this.state.order.filter((pizza) => (pizza && pizza.id == id));
-        return item;
+        const item = this.state.order.filter((pizza) => (pizza && pizza.id == id));
+        return item.length ? item[0] : null;
     }
 
     constructor(props){
@@ -62,6 +63,7 @@ export default class App extends Component {
                 <Switch>
                    <Route path='/' exact render={() => <Home pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
                    <Route path='/cart' exact render={(props) => <Order {...props} order={this.state.order} add={this.addToCart} remove={this.removeFromCart}  />} /> 
+                   <Route path="/order" render={() => <OrderForm order={this.state.order} get={this.getFromCart} />} />
                 </Switch>
                 
             </Router>
