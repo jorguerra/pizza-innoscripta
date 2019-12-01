@@ -11,6 +11,7 @@ export default class Header extends Component {
     }
 
     render() {
+
         const num_cart = this.props.cart.reduce((acc, pizza) => {
             if (!pizza) return acc;
             return acc + pizza.quantity

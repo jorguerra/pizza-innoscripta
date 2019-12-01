@@ -4,7 +4,7 @@ import Header from './Header'
 import Home from './Home';
 import Order from './Order';
 import OrderForm from './OrderForm'
-import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 const axios = require('axios').default
 
@@ -24,14 +24,22 @@ export default class App extends Component {
     }
 
     addToCart = (id) => {
-        const item = this.state.order.reduce((acc, el) => {
+        let item = this.state.order.reduce((acc, el) => {
             if(!el || el.id != id) return acc;
             return {id: id, quantity: acc.quantity + el.quantity}
-        }, {id: id, quantity:1})
-        let order = this.state.order.map((pizza) =>{ return pizza && pizza.id != item.id ? pizza : null})
-        order.push(item)
+        }, {id: id, quantity:1});
+        if(!item.info){
+            item.info = this.getInfoPizza(id)
+        }
+        let order = this.state.order.map((pizza) =>{ 
+            if (pizza && pizza.id != item.id ){
+                pizza.info = this.getInfoPizza(pizza.id);
+                return pizza;
+            }
+            return null
+        }).filter((obj) => obj != null);
+        order.push(item);
         this.setState({order: order})
-        $('#cart').trigger('click')
     }
 
     removeFromCart = (id) => {
@@ -41,12 +49,16 @@ export default class App extends Component {
             return item;
         })
         this.setState({order: order})
-        $('#cart').trigger('click')
     }
 
     getFromCart = (id) => {
         const item = this.state.order.filter((pizza) => (pizza && pizza.id == id));
         return item.length ? item[0] : null;
+    }
+
+    getInfoPizza = (id) => {
+        const pizza = this.state.pizzas.data.filter((p) => p.id == id);
+        return pizza.length ? pizza[0] : null
     }
 
     constructor(props){
@@ -62,7 +74,7 @@ export default class App extends Component {
 
                 <Switch>
                    <Route path='/' exact render={() => <Home pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
-                   <Route path='/cart' exact render={(props) => <Order {...props} order={this.state.order} add={this.addToCart} remove={this.removeFromCart}  />} /> 
+                   <Route path='/cart' exact render={() => <Order order={this.state.order} get={this.getFromCart} add={this.addToCart} remove={this.removeFromCart}  />} /> 
                    <Route path="/order" render={() => <OrderForm order={this.state.order} get={this.getFromCart} />} />
                 </Switch>
                 
