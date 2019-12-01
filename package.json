@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "heroku-prebuild": "npm install --dev",
-        "heroku-postbuild": "/app/public/node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "heroku-postbuild": "npm install && npm run dev"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.7.4",
