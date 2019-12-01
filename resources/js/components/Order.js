@@ -7,29 +7,15 @@ class Item extends Component {
     constructor(props){
         super(props)
         this.state = {
-            pizza: props.pizza,
             add: props.add.bind(this, props.pizza.id),
             remove: props.remove.bind(this, props.pizza.id),
         }
     }
-    remove(){
-        this.state.remove();
-        let pizza = this.state.pizza;
-        pizza.quantity -= !pizza.quantity ? 0 : 1;
-        this.setState({pizza: pizza})
-    }
-    add(){
-        this.state.add()
-        let pizza = this.state.pizza;
-        pizza.quantity ++;
-        this.setState({pizza: pizza})
-    }
     
     render(){
-        const pizza = this.state.pizza;
-        console.log(this.props.pizza, pizza)
+        const pizza = this.props.pizza;
         return (
-            <div className="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
+            <div className="pricing-entry d-flex">
                 <div className="img" style={pizza.style}></div>
                 <div className="desc pl-3">
                     <div className="d-flex text align-items-center">
@@ -39,9 +25,9 @@ class Item extends Component {
                     <div className="d-block order">
                         Quantity: {pizza.quantity}
                         <div className="float-right">
-                        <Link to='#' className="text-primary" onClick={this.add.bind(this)}>+</Link>
+                        <Link to='#' className="text-primary" onClick={this.state.add}>+</Link>
                         &nbsp;&nbsp;&nbsp;
-                        <Link to='#' className="text-danger" onClick={this.remove.bind(this)}>-</Link>
+                        <Link to='#' className="text-danger" onClick={this.state.remove}>-</Link>
                         </div>
                     </div>
                 </div>
@@ -62,7 +48,6 @@ export default class Cart extends Component{
                 this.setState((prevState) => ({pizzas: [pizza, ...prevState.pizzas] }))
             })
         })
-        
     }
 
     render(){

@@ -31,7 +31,7 @@ export default class Header extends Component {
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item active"><Link to="/" className="nav-link">Home</Link></li>
                             <li className="nav-item">
-                                <Link to="/cart" className="nav-link">Cart <small>({txt_cart})</small></Link></li>
+                                <Link to="/cart" id="cart" className="nav-link">Cart <small>({txt_cart})</small></Link></li>
                             <li className="nav-item">
                                 <a href={this.props.user ? null : '/login'} className="nav-link"
                                     onClick={this.props.user ? this.logout : null}>{this.props.user ? 'Logout' : 'Login'}</a>

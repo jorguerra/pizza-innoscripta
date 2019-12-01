@@ -30,6 +30,7 @@ export default class App extends Component {
         let order = this.state.order.map((pizza) =>{ return pizza && pizza.id != item.id ? pizza : null})
         order.push(item)
         this.setState({order: order})
+        $('#cart').trigger('click')
     }
 
     removeFromCart = (id) => {
@@ -39,6 +40,7 @@ export default class App extends Component {
             return item;
         })
         this.setState({order: order})
+        $('#cart').trigger('click')
     }
 
     getFromCart = (id) => {
@@ -59,7 +61,7 @@ export default class App extends Component {
 
                 <Switch>
                    <Route path='/' exact render={() => <Home pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
-                   <Route path='/cart' exact render={() => <Order order={this.state.order} add={this.addToCart} remove={this.removeFromCart} getPizza={this.getFromCart} />} /> 
+                   <Route path='/cart' exact render={(props) => <Order {...props} order={this.state.order} add={this.addToCart} remove={this.removeFromCart}  />} /> 
                 </Switch>
                 
             </Router>
