@@ -10,8 +10,21 @@ export default class Header extends Component {
         })
     }
 
-    render() {
+    login(cart){
+        window.localStorage.clear()
+        window.localStorage.setItem('quantity', cart.length);
+        cart.map((data, index) => window.localStorage.setItem(`item${index}`, JSON.stringify(data)))
+        document.location.href = '/login'
+    }
 
+    constructor(props){
+        super(props);
+        this.state = {
+            log_text : props.user ? 'Logout' : 'Login'
+        }
+    }
+
+    render() {
         const num_cart = this.props.cart.reduce((acc, pizza) => {
             if (!pizza) return acc;
             return acc + pizza.quantity
@@ -34,8 +47,9 @@ export default class Header extends Component {
                             <li className="nav-item">
                                 <Link to="/cart" id="cart" className="nav-link">Cart <small>({txt_cart})</small></Link></li>
                             <li className="nav-item">
-                                <a href={this.props.user ? null : '/login'} className="nav-link"
-                                    onClick={this.props.user ? this.logout : null}>{this.props.user ? 'Logout' : 'Login'}</a>
+                                <a href={null} className="nav-link" style={{cursor: 'pointer'}} 
+                                onClick={() => this.props.user ? this.logout() : this.login(this.props.cart)}>
+                                    {this.props.user ? 'Logout' : 'Login'}</a>
                             </li>
                         </ul>
                     </div>

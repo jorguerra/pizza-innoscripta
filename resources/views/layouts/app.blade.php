@@ -24,11 +24,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" data-token="{{ Auth::user()->api_token ?? ''}}"></div>
+    <div id="{{ Route::currentRouteName()}}" data-token="{{ Auth::user()->api_token ?? ''}}"></div>
     <div>
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <main class="py-4">@yield('content')</main>
     </div>
 </body>
 </html>

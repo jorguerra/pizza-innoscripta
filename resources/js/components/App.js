@@ -14,12 +14,22 @@ export default class App extends Component {
     componentDidMount(){
         this.getUser()
         axios.get(`/api/pizzas`).then((resp) => this.setState({pizzas: resp.data}))
+        if(window.localStorage.getItem('quantity')){
+            let order = [];
+            for(let i = 0; i < window.localStorage.getItem('quantity'); i++){
+                order.push(JSON.parse(window.localStorage.getItem(`item${i}`)))
+            }
+            this.setState({order: order})
+            window.localStorage.clear(); 
+        }
     }
 
     getUser = async () => {
-        let token = document.getElementById('app').dataset.token;
+        let token = document.getElementById('home').dataset.token;
         if(token){
-            axios.get(`/api/user?api_token=${token}`).then((resp) => this.setState({user: resp.data}))
+            axios.get(`/api/user?api_token=${token}`).then((resp) => {
+                this.setState({user: resp.data});
+            })
         }
     }
 
@@ -83,6 +93,6 @@ export default class App extends Component {
     }
 }
 
-if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
+if (document.getElementById('home')) {
+    ReactDOM.render(<App />, document.getElementById('home'));
 }
