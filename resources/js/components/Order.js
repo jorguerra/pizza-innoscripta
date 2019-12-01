@@ -63,7 +63,9 @@ export default class Cart extends Component{
                         })}
                     </div>
                     <div className="col-md-12 text-center">
-                        <Link to='/order' className="btn btn-primary">Process order</Link>
+                        <Link to={this.state2.length ? '/order':'#'} className="btn btn-primary">
+                            {this.state2.length ? 'Process order' : 'You don\'t have pizzas yet'}
+                        </Link>
                     </div>
                 </div>
             </section>
