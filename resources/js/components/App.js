@@ -30,6 +30,7 @@ export default class App extends Component {
         let token = document.getElementById('home').dataset.token;
         if(token){
             axios.get(`/api/user?api_token=${token}`).then((resp) => {
+                resp.data.token = token;
                 this.setState({user: resp.data});
             })
         }
@@ -87,7 +88,7 @@ export default class App extends Component {
                 <Switch>
                    <Route path='/' exact render={() => <Home pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
                    <Route path='/cart' exact render={() => <Order order={this.state.order} get={this.getFromCart} user={this.state.user.id} add={this.addToCart} remove={this.removeFromCart}  />} /> 
-                   <Route path="/order" render={() => <OrderForm order={this.state.order} get={this.getFromCart} />} />
+                   <Route path="/order" render={() => <OrderForm order={this.state.order} get={this.getFromCart} user={this.state.user} />} />
                 </Switch>
                 
             </Router>

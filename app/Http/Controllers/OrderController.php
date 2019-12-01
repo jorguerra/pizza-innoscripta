@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Pizza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -36,7 +38,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->name != Auth::user()->name){
+            Auth::user()->update(['name' => $request->name]);
+        }
+        $order = $request->order;
+        $order['user_id'] = Auth::user()->id;
+        $newOrder = Order::create($order);
+        $pizzas = [];
+        $order_id = $newOrder->id;
+        foreach($request->pizzas as $pizza_id => $quantity)
+        {
+            $price = Pizza::find($pizza_id)->price;
+            $pizzas []= compact('order_id', 'pizza_id', 'quantity', 'price');
+        }
+        DB::table('pizza_order')->insert($pizzas);
+        return $order;
     }
 
     /**
