@@ -5,6 +5,11 @@ axios = require('axios').default;
 export default class Cart extends Component{
     state = {pizzas: [], qty: []}
 
+    constructor(props){
+        super(props);
+        this.state2 = props.order
+    }
+
     componentDidMount(){
         this.props.order.map((pizza) => {
             if(!pizza) return;
@@ -31,13 +36,13 @@ export default class Cart extends Component{
                         </div>
                     </div>
                     <div className="row">
-                        {this.props.order.sort((a,b) => a.info.name < b.info.name).map((order ) =>{
+                        {this.state2.map((order ) =>{
                             const pizza = order ? this.props.get.bind(this, order.id)() : null;
                             return (
                                 pizza && pizza.info ?     
                                 <div key={pizza.id} className="col-md-6">
                                     <div className="pricing-entry d-flex">
-                                        <div className="img" style={pizza.style}></div>
+                                        <div className="img" style={order.style}></div>
                                         <div className="desc pl-3">
                                             <div className="d-flex text align-items-center">
                                                 <h3><span>{pizza.quantity} x {pizza.info.name}</span></h3>
