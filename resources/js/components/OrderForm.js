@@ -24,16 +24,28 @@ export default class Form extends React.Component {
                         <div className="col-md-1"></div>
                         <div className="col-md-6 ftco-animate fadeInUp ftco-animated">
                             <form action="#" className="contact-form">
+                            <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <input type="text" name="name" className="form-control" placeholder="Name" />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <input type="text" name="last_name" className="form-control" placeholder="Last name" />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <input type="text" name="street_line1" className="form-control" placeholder="Street line 1" />
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <input type="text" name="street_line2" className="form-control" placeholder="Street line 2" />
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <input type="text" name="street_line2" className="form-control" placeholder="Street line 2" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="form-group">

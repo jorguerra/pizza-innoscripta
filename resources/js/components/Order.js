@@ -63,9 +63,11 @@ export default class Cart extends Component{
                         })}
                     </div>
                     <div className="col-md-12 text-center">
-                        <Link to={this.state2.length ? '/order':'#'} className="btn btn-primary">
-                            {this.state2.length ? 'Process order' : 'You don\'t have pizzas yet'}
-                        </Link>
+                        {this.props.user ?
+                            <Link to={this.state2.length ? '/order':'#'} className="btn btn-primary">
+                                {this.state2.length ? 'Process order' : 'You don\'t have pizzas yet'}
+                            </Link>
+                        : <Link to="#" className="btn btn-primary">You need to login first</Link>}
                     </div>
                 </div>
             </section>

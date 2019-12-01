@@ -84,7 +84,7 @@ export default class App extends Component {
 
                 <Switch>
                    <Route path='/' exact render={() => <Home pizzas={this.state.pizzas.data} add={this.addToCart} />} /> 
-                   <Route path='/cart' exact render={() => <Order order={this.state.order} get={this.getFromCart} add={this.addToCart} remove={this.removeFromCart}  />} /> 
+                   <Route path='/cart' exact render={() => <Order order={this.state.order} get={this.getFromCart} user={this.state.user.id} add={this.addToCart} remove={this.removeFromCart}  />} /> 
                    <Route path="/order" render={() => <OrderForm order={this.state.order} get={this.getFromCart} />} />
                 </Switch>
                 
