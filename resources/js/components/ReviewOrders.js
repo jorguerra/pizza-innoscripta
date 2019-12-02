@@ -20,7 +20,7 @@ export default class ReviewOrders extends React.Component{
         const mobile_phone = <td>{order.mobile_phone}</td>
         const pizzas = <td>{order.pizzas.map((pizza) => pizza.name).join(', ')}</td>
         const amount = <td>${order.amount}</td>
-        return <tr>{admin_col}{created_at}{mobile_phone}{pizzas}{amount}</tr>
+        return <tr key={order.id}>{admin_col}{created_at}{mobile_phone}{pizzas}{amount}</tr>
     }
 
     render(){
@@ -48,7 +48,6 @@ export default class ReviewOrders extends React.Component{
                             {this.state.orders.map((order) => this.printOrder(order))}
                         </tbody>
                     </table>
-
                 </div>
             </section>
         )
