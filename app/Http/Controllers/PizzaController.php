@@ -15,7 +15,7 @@ class PizzaController extends Controller
      */
     public function index()
     {
-        return Pizza::paginate();
+        return Pizza::paginate(50);
     }
 
     /**

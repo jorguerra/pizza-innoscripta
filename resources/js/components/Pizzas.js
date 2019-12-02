@@ -16,7 +16,7 @@ export default class ManagePizza extends React.Component {
         e.preventDefault();
         const query = `api_token=${this.token}&` + $('#pizza-form').serialize();
         let pizzas = this.state.pizzas;
-        axios.post(`/api/pizzas?${query}`).then((pizza) => {
+         axios.post(`/api/pizzas?${query}`).then((pizza) => {
             pizzas.push(pizza.data);
         })
         e.target.reset();
