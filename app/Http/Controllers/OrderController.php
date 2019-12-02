@@ -55,7 +55,7 @@ class OrderController extends Controller
             $pizzas []= compact('order_id', 'pizza_id', 'quantity', 'price');
         }
         DB::table('pizza_order')->insert($pizzas);
-        $request->session()->flash('success', 'Your order has been processed');
+        Session::put('success', 'Your order has been processed');
         return redirect('/');
     }
 
