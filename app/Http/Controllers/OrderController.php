@@ -17,7 +17,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Auth::user()->admin ? Order::paginate() : Auth::user()->orders->paginate();
+        return Auth::user()->admin ? 
+            Order::with('user', 'pizzas')->orderBy('created_at', 'desc')->paginate() : 
+            Auth::user()->orders()->with('pizzas')->orderBy('created_at', 'desc')->paginate()
+        ;
     }
 
     /**

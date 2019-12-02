@@ -17,13 +17,6 @@ export default class Header extends Component {
         document.location.href = '/login'
     }
 
-    constructor(props){
-        super(props);
-        this.state = {
-            log_text : props.user ? 'Logout' : 'Login'
-        }
-    }
-
     render() {
         const num_cart = this.props.cart.reduce((acc, pizza) => {
             if (!pizza) return acc;
@@ -45,7 +38,9 @@ export default class Header extends Component {
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item active"><Link to="/" className="nav-link">Home</Link></li>
                             <li className="nav-item">
-                                <Link to="/cart" id="cart" className="nav-link">Cart <small>({txt_cart})</small></Link></li>
+                                <Link to="/cart" id="cart" className="nav-link">Cart <small>({txt_cart})</small></Link>
+                            </li>
+                            {this.props.user ? <li className="nav-item"><Link to="/review-orders" className="nav-link">Review orders</Link></li> : ''}
                             <li className="nav-item">
                                 <a href={null} className="nav-link" style={{cursor: 'pointer'}} 
                                 onClick={() => this.props.user ? this.logout() : this.login(this.props.cart)}>
