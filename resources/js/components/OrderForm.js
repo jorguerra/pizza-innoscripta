@@ -15,7 +15,11 @@ export default class Form extends React.Component {
         const self = this
         const token = document.getElementById('home').dataset.token;
         const data = `api_token=${token}&` + $('#orderForm').serialize();
-        axios.post('/api/orders?' + data).then(() => {
+        axios({
+            method: 'post',
+            url: '/api/orders',
+            data: data
+        }).then(() => {
             self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
         }).catch((error) => {
             self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
