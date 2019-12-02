@@ -10,22 +10,23 @@ export default class Form extends React.Component {
             classResult : 'hide'
         }
     }
-    order(e){
-        e.preventDefault();
-        const self = this
-        const token = document.getElementById('home').dataset.token;
-        const data = `api_token=${token}&` + $('#orderForm').serialize();
-        axios({
-            method: 'post',
-            url: '/api/orders',
-            data: data
-        }).then(() => {
-            self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
-        }).catch((error) => {
-            self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
-        })
-    }
+
     render(){
+        order = (e) => {
+            e.preventDefault();
+            const self = this
+            const token = document.getElementById('home').dataset.token;
+            const data = `api_token=${token}&` + $('#orderForm').serialize();
+            axios({
+                method: 'post',
+                url: '/api/orders',
+                data: data
+            }).then(() => {
+                self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
+            }).catch((error) => {
+                self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
+            })
+        }
         const {user} = this.props
         return (
             <section className="ftco-section contact-section">
@@ -48,7 +49,7 @@ export default class Form extends React.Component {
                         </div>
                         <div className="col-md-1"></div>
                         <div className="col-md-6 ftco-animate fadeInUp ftco-animated">
-                            <form action="" onSubmit={this.order.bind(this)} className="contact-form" id="orderForm">
+                            <form action="" onSubmit={() => order()} className="contact-form" id="orderForm">
                                 <div className="form-group">
                                     <input type="text" name="name" defaultValue={user.name} className="form-control" placeholder="Name" />
                                 </div>
