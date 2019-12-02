@@ -15,7 +15,7 @@ export default class Form extends React.Component {
         const self = this
         const token = document.getElementById('home').dataset.token;
         const data = `api_token=${token}&` + $('#orderForm').serialize();
-        axios.post('/api/orders/', data).then(() => {
+        axios.post('/api/orders?' + data).then(() => {
             self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
         }).catch((error) => {
             self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
@@ -34,13 +34,13 @@ export default class Form extends React.Component {
                             {this.props.order.map((pizza) =>{
                                 const order = pizza ? this.props.get.bind(this, pizza.id)() : null;
                                 return (
-                                    order ? 
+                                    order ?
                                     <div key={pizza.id} className="col-md-12 mb-3">
                                         <p><span>{order.quantity} {order.info.name}</span></p>
-                                    </div> 
+                                    </div>
                                     : ''
                                 )
-                            })}    
+                            })}
                         </div>
                         <div className="col-md-1"></div>
                         <div className="col-md-6 ftco-animate fadeInUp ftco-animated">
@@ -81,7 +81,7 @@ export default class Form extends React.Component {
                         </div>
                     </div>
                 </div>
-            </section>            
+            </section>
         )
     }
 }
