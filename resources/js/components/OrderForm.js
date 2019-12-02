@@ -9,24 +9,10 @@ export default class Form extends React.Component {
             result: '',
             classResult : 'hide'
         }
+        this.token = document.getElementById('home').dataset.token;
     }
 
     render(){
-        order = (e) => {
-            e.preventDefault();
-            const self = this
-            const token = document.getElementById('home').dataset.token;
-            const data = `api_token=${token}&` + $('#orderForm').serialize();
-            axios({
-                method: 'post',
-                url: '/api/orders',
-                data: data
-            }).then(() => {
-                self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
-            }).catch((error) => {
-                self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
-            })
-        }
         const {user} = this.props
         return (
             <section className="ftco-section contact-section">
@@ -49,7 +35,8 @@ export default class Form extends React.Component {
                         </div>
                         <div className="col-md-1"></div>
                         <div className="col-md-6 ftco-animate fadeInUp ftco-animated">
-                            <form action="" onSubmit={() => order()} className="contact-form" id="orderForm">
+                            <form action="" method="post" className="contact-form" id="orderForm">
+                                <input type="hidden" name="api_token" defaultValue={this.token} />
                                 <div className="form-group">
                                     <input type="text" name="name" defaultValue={user.name} className="form-control" placeholder="Name" />
                                 </div>
@@ -72,7 +59,17 @@ export default class Form extends React.Component {
                                     <input required type="text" name="order[mobile_phone]" className="form-control" placeholder="Mobile phone" />
                                 </div>
                                 <div className="form-group">
-                                    <input required type="submit" value="Order" className="btn btn-primary py-3 px-5" />
+                                    <input type="button" onClick={() => {
+                                        axios({
+                                            method: 'post',
+                                            url: '/api/orders',
+                                            data: $('#orderForm').serialize()
+                                        }).then(() => {
+                                            self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
+                                        }).catch((error) => {
+                                            self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
+                                        })
+                                    }} value="Order" className="btn btn-primary py-3 px-5" />
                                 </div>
 
                                 {this.props.order.map((pizza) => {
