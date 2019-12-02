@@ -17,8 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Auth::user()->admin ? 
-            Order::with('user', 'pizzas')->orderBy('created_at', 'desc')->paginate() : 
+        return Auth::user()->admin ?
+            Order::with('user', 'pizzas')->orderBy('created_at', 'desc')->paginate() :
             Auth::user()->orders()->with('pizzas')->orderBy('created_at', 'desc')->paginate()
         ;
     }
@@ -55,7 +55,7 @@ class OrderController extends Controller
             $pizzas []= compact('order_id', 'pizza_id', 'quantity', 'price');
         }
         DB::table('pizza_order')->insert($pizzas);
-        return $order;
+        return redirect('/');
     }
 
     /**

@@ -35,7 +35,7 @@ export default class Form extends React.Component {
                         </div>
                         <div className="col-md-1"></div>
                         <div className="col-md-6 ftco-animate fadeInUp ftco-animated">
-                            <form action="" method="post" className="contact-form" id="orderForm">
+                            <form action="/api/orders" method="post" className="contact-form">
                                 <input type="hidden" name="api_token" defaultValue={this.token} />
                                 <div className="form-group">
                                     <input type="text" name="name" defaultValue={user.name} className="form-control" placeholder="Name" />
@@ -59,17 +59,7 @@ export default class Form extends React.Component {
                                     <input required type="text" name="order[mobile_phone]" className="form-control" placeholder="Mobile phone" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="button" onClick={() => {
-                                        axios({
-                                            method: 'post',
-                                            url: '/api/orders',
-                                            data: $('#orderForm').serialize()
-                                        }).then(() => {
-                                            self.setState({result: 'We have received your order', classResult:'bg-success text-white'})
-                                        }).catch((error) => {
-                                            self.setState({result: 'Something went wrong. I am sorry. Try again', classResult:'bg-danger text-white'})
-                                        })
-                                    }} value="Order" className="btn btn-primary py-3 px-5" />
+                                    <input type="submit" value="Order" className="btn btn-primary py-3 px-5" />
                                 </div>
 
                                 {this.props.order.map((pizza) => {
