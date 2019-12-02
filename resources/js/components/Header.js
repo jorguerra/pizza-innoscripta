@@ -41,6 +41,7 @@ export default class Header extends Component {
                                 <Link to="/cart" id="cart" className="nav-link">Cart <small>({txt_cart})</small></Link>
                             </li>
                             {this.props.user ? <li className="nav-item"><Link to="/review-orders" className="nav-link">Review orders</Link></li> : ''}
+                            {this.props.admin ? <li className="nav-item"><Link to="/manage-pizzas" className="nav-link">Manage pizzas</Link></li> : ''}
                             <li className="nav-item">
                                 <a href={null} className="nav-link" style={{cursor: 'pointer'}} 
                                 onClick={() => this.props.user ? this.logout() : this.login(this.props.cart)}>

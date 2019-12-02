@@ -6,6 +6,7 @@ import Order from './Order';
 import OrderForm from './OrderForm'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ReviewOrders from './ReviewOrders';
+import ManagePizza from './Pizzas';
 
 const axios = require('axios').default
 
@@ -91,6 +92,7 @@ export default class App extends Component {
                    <Route path='/cart' exact render={() => <Order order={this.state.order} get={this.getFromCart} user={this.state.user.id} add={this.addToCart} remove={this.removeFromCart}  />} /> 
                    <Route path="/order" render={() => <OrderForm order={this.state.order} get={this.getFromCart} user={this.state.user} />} />
                    <Route path="/review-orders" render={() => <ReviewOrders admin={this.state.user.admin} />} />
+                   <Route path="/manage-pizzas" component={ManagePizza} />
                 </Switch>
                 
             </Router>

@@ -38,7 +38,10 @@ class PizzaController extends Controller
     {
         if(!Auth::user()->admin) 
             return response();
-        $pizza = Pizza::create($request->pizza);
+        $pizza = new Pizza($request->pizza);
+        //Will get a random photo of a pizza
+        $pizza->photo = 'https://loremflickr.com/320/240/pizza/all';
+        $pizza->save();
         return $pizza;
     }
 
