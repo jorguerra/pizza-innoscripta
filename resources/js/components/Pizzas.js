@@ -17,13 +17,15 @@ export default class ManagePizza extends React.Component {
         const query = `api_token=${this.token}&` + $('#pizza-form').serialize();
         let pizzas = this.state.pizzas;
         axios.post(`/api/pizzas?${query}`).then((pizza) => {
-            pizzas.push(pizza);
+            pizzas.push(pizza.data);
         })
         e.target.reset();
         this.setState({pizzas: pizzas})
+
     }
     
     render(){
+        const {pizzas} = this.state
         return (
             <section className="ftco-section contact-section">
                 <div className="container mt-5">
@@ -51,7 +53,7 @@ export default class ManagePizza extends React.Component {
                         <div className="col-md-7"><strong>Description</strong></div>
                         <div className="col-md-1"><strong>Price</strong></div>
                     </div>
-                    {this.state.pizzas.map((pizza, index) =>
+                    {pizzas.map((pizza, index) =>
                         <div key={index} className="row">
                             <div className="col-md-1">{pizza.id}</div>
                             <div className="col-md-2">{pizza.name}</div>
